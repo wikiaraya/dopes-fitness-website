@@ -1,9 +1,19 @@
-<h1>Contact Us</h1>
-<p>If you have any questions about our products, payments, or services, feel free to reach out to us:</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+</head>
+<body>
+  <h1>Contact Us</h1>
+  <p>If you have any questions about our services, payments, or products, please feel free to reach out to us:</p>
 
-<p><b>Business Name:</b> [Your Business Name]</p>
-<p><b>Email:</b> [yourbusiness@email.com]</p>
-<p><b>Phone:</b> +91-XXXXXXXXXX</p>
-<p><b>Address:</b> [Your business address]</p>
+  <p><strong>Business Name:</strong> Your Business Name</p>
+  <p><strong>Email:</strong> vigneshsekaragustine@email.com</p>
+  <p><strong>Phone:</strong> +91-9597970776</p>
+  <p><strong>Address:</strong> Your business address</p>
 
-<p>We will respond to your queries within 24-48 hours.</p>
+  <p>We usually respond to all queries within 24–48 hours.</p>
+</body>
+</html>
