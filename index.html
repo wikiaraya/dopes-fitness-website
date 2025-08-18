@@ -41,6 +41,19 @@
       background: #f0f0f0;
       border-left: 5px solid #111;
     }
+    .btn {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 10px 20px;
+      background: #111;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #444;
+    }
     footer {
       text-align: center;
       padding: 15px;
@@ -82,7 +95,11 @@
     <p>Phone: <a href="tel:+919597970776">+91-9597970776</a></p>
     <p>Website: <a href="https://wikiaraya.github.io/dopes-fitness-website/services.html">https://wikiaraya.github.io/dopes-fitness-website/services.html</a></p>
 
-    <p><a href="services.html">View Full Services Page</a> | <a href="payment.html">Go to Payment Page</a></p>
+    <p>
+      <a href="services.html" class="btn">View Full Services Page</a>
+      <a href="payment.html" class="btn">Go to Payment Page</a>
+      <a href="services.pdf" class="btn" download>Download Services PDF</a>
+    </p>
   </div>
 
   <footer>
