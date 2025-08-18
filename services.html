@@ -1,230 +1,91 @@
-# Create a Services HTML page and a matching PNG "screenshot"-style export
-from PIL import Image, ImageDraw, ImageFont
-from textwrap import wrap
-
-# 1) Write the HTML file
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dopes Fitness — Services</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dopes Fitness - Services</title>
   <style>
-    :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --ink: #0f172a;
-      --muted: #475569;
-      --accent: #0ea5e9;
-      --border: #e2e8f0;
-    }
-    * { box-sizing: border-box; }
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--ink);
-      background: var(--bg);
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 920px;
-      margin: 48px auto;
-      padding: 0 20px;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
     }
     header {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 28px;
-      border-radius: 16px;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: 28px;
-      margin: 0 0 8px;
-    }
-    .tagline {
-      color: var(--muted);
-      font-weight: 500;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    @media (min-width: 860px) {
-      .grid { grid-template-columns: 1fr 1fr; }
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
-    }
-    h2 { margin-top: 0; font-size: 20px; }
-    ul { padding-left: 18px; }
-    .price {
-      display: grid;
-      gap: 10px;
-    }
-    .pill {
-      display: inline-block;
-      background: #e0f2fe;
-      color: #075985;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .muted { color: var(--muted); }
-    footer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: var(--muted);
+      background: #111;
+      color: #fff;
+      padding: 20px;
       text-align: center;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    header h1 {
+      margin: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #111;
+    }
+    ul {
+      line-height: 1.6;
+    }
+    .pricing {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f0f0f0;
+      border-left: 5px solid #111;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      background: #111;
+      color: #fff;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
+
+  <header>
+    <h1>Dopes Fitness - Services</h1>
+    <p><em>Sync in dopes to get muscle on high</em></p>
+  </header>
+
   <div class="container">
-    <header>
-      <h1>Dopes Fitness — Services</h1>
-      <div class="tagline">sync in dopes to get muscle on high</div>
-    </header>
+    <h2>What We Provide</h2>
+    <p>We provide subscription-based online fitness services that include:</p>
+    <ul>
+      <li>Personalized workout plans</li>
+      <li>Video training sessions</li>
+      <li>Diet & nutrition guidance</li>
+    </ul>
 
-    <section class="grid">
-      <div class="card">
-        <h2>What we offer</h2>
-        <ul>
-          <li>Subscription-based access to premium fitness plans.</li>
-          <li>Structured workout videos for home & gym.</li>
-          <li>Personalized diet & habit-tracking checklists.</li>
-          <li>Progress tracking and weekly tips via email.</li>
-          <li>Priority support for paid members.</li>
-        </ul>
-      </div>
+    <div class="pricing">
+      <h2>Pricing Plans</h2>
+      <p><strong>Monthly:</strong> ₹299</p>
+      <p><strong>Quarterly:</strong> ₹749</p>
+      <p><strong>Yearly:</strong> ₹2,499</p>
+    </div>
 
-      <div class="card">
-        <h2>Pricing</h2>
-        <div class="price">
-          <div><span class="pill">Monthly</span> ₹299</div>
-          <div><span class="pill">Quarterly</span> ₹749</div>
-          <div><span class="pill">Yearly</span> ₹2,499</div>
-          <p class="muted">All prices in INR. Taxes may apply.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Payments</h2>
-        <p>We accept secure online payments via <strong>Razorpay</strong>. After payment, your plan is activated instantly and you’ll receive email confirmation.</p>
-      </div>
-
-      <div class="card">
-        <h2>Contact & Support</h2>
-        <p>Email: <a href="mailto:vigneshsekaragustine@gmail.com">vigneshsekaragustine@gmail.com</a><br/>
-           Phone: +91-9597970776</p>
-        <p>We usually reply within 24–48 hours.</p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Policies & Terms</h2>
-      <p class="muted">By subscribing, you agree to our terms and policies below.</p>
-      <ul>
-        <li><a href="https://wikiaraya.github.io/dopes-fitness-website/terms.html" target="_blank" rel="noopener">Terms & Conditions</a></li>
-        <li><a href="https://wikiaraya.github.io/dopes-fitness-website/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
-        <li><a href="https://wikiaraya.github.io/dopes-fitness-website/refund.html" target="_blank" rel="noopener">Cancellations & Refunds</a></li>
-        <li><a href="https://wikiaraya.github.io/dopes-fitness-website/shipping.html" target="_blank" rel="noopener">Shipping / Digital Delivery</a></li>
-        <li><a href="https://wikiaraya.github.io/dopes-fitness-website/Contact%20Us%20Page" target="_blank" rel="noopener">Contact Us</a></li>
-      </ul>
-    </section>
-
-    <footer>
-      © {year} Dopes Fitness. All rights reserved.
-    </footer>
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:vigneshsekaragustine@gmail.com">vigneshsekaragustine@gmail.com</a></p>
+    <p>Phone: <a href="tel:+919597970776">+91-9597970776</a></p>
+    <p>Website: <a href="https://wikiaraya.github.io/dopes-fitness-website/services.html">https://wikiaraya.github.io/dopes-fitness-website/services.html</a></p>
   </div>
+
+  <footer>
+    <p>&copy; 2025 Dopes Fitness. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>
-""".replace("{year}", "2025")
-
-html_path = "/mnt/data/services.html"
-with open(html_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-# 2) Create a PNG "screenshot" with matching content
-W, H = 1200, 1700
-img = Image.new("RGB", (W, H), "white")
-draw = ImageDraw.Draw(img)
-
-# Try to load a nicer default font; fallback to default if unavailable.
-try:
-    font_title = ImageFont.truetype("DejaVuSans-Bold.ttf", 48)
-    font_sub = ImageFont.truetype("DejaVuSans.ttf", 28)
-    font_h2 = ImageFont.truetype("DejaVuSans-Bold.ttf", 36)
-    font_body = ImageFont.truetype("DejaVuSans.ttf", 24)
-except:
-    font_title = ImageFont.load_default()
-    font_sub = ImageFont.load_default()
-    font_h2 = ImageFont.load_default()
-    font_body = ImageFont.load_default()
-
-x_margin = 60
-y = 60
-
-draw.text((x_margin, y), "Dopes Fitness — Services", font=font_title, fill=(15,23,42))
-y += 70
-draw.text((x_margin, y), "sync in dopes to get muscle on high", font=font_sub, fill=(71,85,105))
-y += 60
-
-def block(title, items):
-    global y
-    draw.text((x_margin, y), title, font=font_h2, fill=(15,23,42))
-    y += 44
-    for line in items:
-        wrapped = wrap(line, width=70)
-        for wl in wrapped:
-            draw.text((x_margin, y), "• " + wl, font=font_body, fill=(15,23,42))
-            y += 32
-    y += 16
-
-block("What we offer", [
-    "Subscription-based access to premium fitness plans.",
-    "Structured workout videos for home & gym.",
-    "Personalized diet & habit-tracking checklists.",
-    "Progress tracking and weekly tips via email.",
-    "Priority support for paid members."
-])
-
-block("Pricing", [
-    "Monthly: ₹299",
-    "Quarterly: ₹749",
-    "Yearly: ₹2,499",
-    "All prices in INR. Taxes may apply."
-])
-
-block("Payments", [
-    "We accept secure online payments via Razorpay.",
-    "After payment, your plan is activated instantly and you’ll receive an email confirmation."
-])
-
-block("Contact & Support", [
-    "Email: vigneshsekaragustine@gmail.com",
-    "Phone: +91-9597970776",
-    "We usually reply within 24–48 hours."
-])
-
-block("Policies & Terms", [
-    "By subscribing, you agree to our Terms & Conditions, Privacy Policy,",
-    "Cancellations & Refunds, and Digital Delivery (Shipping) policy.",
-    "Links are available on our site footer."
-])
-
-draw.text((x_margin, H-80), "© 2025 Dopes Fitness. All rights reserved.", font=font_body, fill=(100,116,139))
-
-png_path = "/mnt/data/services_screenshot.png"
-img.save(png_path)
-
-html_path, png_path
