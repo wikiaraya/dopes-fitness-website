@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const app = express();
 app.use(bodyParser.json());
 
-// Razorpay setup (keys stored in Render → Environment Variables)
+// Razorpay setup (keys will be stored in Render → Environment Variables)
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -41,23 +41,18 @@ app.post("/create-order", async (req, res) => {
 app.post("/verify-payment", (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
-  try {
-    const sign = razorpay_order_id + "|" + razorpay_payment_id;
-    const expectedSign = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-      .update(sign.toString())
-      .digest("hex");
+  const body = razorpay_order_id + "|" + razorpay_payment_id;
 
-    if (razorpay_signature === expectedSign) {
-      console.log("✅ Payment verified:", razorpay_payment_id);
-      res.json({ status: "success", paymentId: razorpay_payment_id });
-    } else {
-      console.log("❌ Payment verification failed");
-      res.status(400).json({ status: "failure" });
-    }
-  } catch (err) {
-    console.error("Error verifying payment:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+    .update(body.toString())
+    .digest("hex");
+
+  if (expectedSignature === razorpay_signature) {
+    // Payment verified successfully
+    res.json({ status: "success", paymentId: razorpay_payment_id });
+  } else {
+    res.json({ status: "failure" });
   }
 });
 
