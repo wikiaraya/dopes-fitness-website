@@ -8,7 +8,8 @@
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     document.getElementById('rzp-button1').onclick = function(e){
-        fetch("https://fitness-app-rl7q.onrender.com/order", { method: "POST" })
+        fetch("https://fitness-app-rl7q.onrender.com/create-order", { method: "POST" })
+
         .then(response => response.json())
         .then(order => {
             var options = {
