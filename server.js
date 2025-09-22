@@ -12,7 +12,7 @@ const razorpay = new Razorpay({
 });
 
 // Subscription amount (₹50)
-const SUBSCRIPTION_AMOUNT = 50;
+const SUBSCRIPTION_AMOUNT = 10;
 
 // Test route
 app.get("/", (req, res) => {
