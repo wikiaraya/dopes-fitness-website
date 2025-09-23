@@ -8,42 +8,37 @@
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     document.getElementById('rzp-button1').onclick = function(e){
-      fetch("https://fitness-app-rl7q.onrender.com/create-order", { method: "POST" })
+        fetch("https://fitness-app-rl7q.onrender.com/create-order", { method: "POST" })
         .then(response => response.json())
         .then(order => {
-          var options = {
-            "key": "rzp_live_RKB5wpngUC57hu", // ⚡ Replace with your actual Razorpay Key ID
-            "amount": order.amount,
-            "currency": "INR",
-            "name": "Dopes Fitness",
-            "description": "Subscription Payment",
-            "order_id": order.id,
-            "handler": function (response){
-              // Send payment details to backend for verification
-              fetch("https://fitness-app-rl7q.onrender.com/verify-payment", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(response)
-              })
-              .then(res => res.json())
-              .then(data => {
-                if(data.status === "success"){
-                  alert("✅ Payment Verified! Payment ID: " + data.paymentId);
-                } else {
-                  alert("❌ Payment verification failed!");
+            var options = {
+                "key": "rzp_live_RKB5wpngUC57hu", // Replace with your Razorpay LIVE Key ID
+                "amount": order.amount,
+                "currency": "INR",
+                "name": "Dopes Fitness",
+                "description": "Subscription Payment",
+                "order_id": order.id,
+                "handler": function (response){
+                    // 👇 Call backend to verify payment
+                    fetch("https://fitness-app-rl7q.onrender.com/verify-payment", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(response)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.success){
+                            alert("✅ Payment Verified Successfully!");
+                        } else {
+                            alert("⚠️ Payment Verification Failed!");
+                        }
+                    });
                 }
-              })
-              .catch(err => {
-                console.error("Verification error:", err);
-                alert("⚠️ Could not verify payment. Please contact support.");
-              });
-            }
-          };
-          var rzp1 = new Razorpay(options);
-          rzp1.open();
-        });
-
-      e.preventDefault();
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        })
+        e.preventDefault();
     }
   </script>
 </body>
