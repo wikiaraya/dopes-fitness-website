@@ -20,13 +20,14 @@ app.get("/", (req, res) => {
   res.send("Razorpay Backend Running 🚀");
 });
 
-// API to create an order
+// API to create an order (automatic capture enabled)
 app.post("/create-order", async (req, res) => {
   try {
     const options = {
       amount: SUBSCRIPTION_AMOUNT * 100, // paise
       currency: "INR",
       receipt: "receipt_" + Date.now(),
+      payment_capture: 1, // <-- automatic capture!
     };
 
     const order = await razorpay.orders.create(options);
@@ -37,7 +38,7 @@ app.post("/create-order", async (req, res) => {
   }
 });
 
-// ✅ API to verify payment (important for security!)
+// API to verify payment (important for security!)
 app.post("/verify-payment", (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
@@ -48,8 +49,8 @@ app.post("/verify-payment", (req, res) => {
     .digest("hex");
 
   if (expectedSignature === razorpay_signature) {
-    // Payment verified successfully
-    return res.json({ success: true, message: "Payment verified ✅" });
+    // Payment verified successfully (already captured automatically!)
+    return res.json({ success: true, message: "Payment verified & captured ✅" });
   } else {
     // Verification failed
     return res.status(400).json({ success: false, message: "Payment verification failed ❌" });
