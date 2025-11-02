@@ -12,14 +12,14 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// Subscription amount (₹10)
-const SUBSCRIPTION_AMOUNT = 10;
+// Subscription amount (₹50)
+const SUBSCRIPTION_AMOUNT = 50;
 
 // ✅ 1️⃣ Create Order Endpoint
 app.post("/create-order", async (req, res) => {
   try {
     const options = {
-      amount: SUBSCRIPTION_AMOUNT * 100, // Convert ₹10 → 1000 paise
+      amount: SUBSCRIPTION_AMOUNT * 5000, // Convert ₹10 → 1000 paise
       currency: "INR",
       receipt: "receipt_" + Date.now(),
       payment_capture: 1, // Auto-capture enabled
@@ -80,7 +80,7 @@ app.post("/create-invoice", async (req, res) => {
         {
           name: "Dopes Fitness Subscription",
           description: "Monthly Subscription Plan",
-          amount: amount * 100, // Convert to paise
+          amount: amount * 5000, // Convert to paise
           currency: "INR",
           quantity: 1,
         },
