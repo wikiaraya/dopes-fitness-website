@@ -29,7 +29,7 @@
 <body>
   <h1>Subscribe & Pay</h1>
   <p>Get started with Dopes Fitness subscription!</p>
-  <button class="btn" id="payBtn">Pay ₹10</button>
+  <button class="btn" id="payBtn">Pay ₹50</button>
 
   <script>
     document.getElementById('payBtn').onclick = async function (e) {
@@ -40,7 +40,7 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: 10, // Amount in rupees
+          amount: 50, // Amount in rupees
           currency: "INR",
           receipt: "rcpt_" + Date.now()
         }),
