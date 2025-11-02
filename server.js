@@ -19,7 +19,7 @@ const SUBSCRIPTION_AMOUNT = 50;
 app.post("/create-order", async (req, res) => {
   try {
     const options = {
-      amount: SUBSCRIPTION_AMOUNT * 5000, // Convert ₹10 → 1000 paise
+      amount: SUBSCRIPTION_AMOUNT * 100, // Convert ₹10 → 1000 paise
       currency: "INR",
       receipt: "receipt_" + Date.now(),
       payment_capture: 1, // Auto-capture enabled
