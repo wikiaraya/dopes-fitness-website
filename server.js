@@ -80,7 +80,7 @@ app.post("/create-invoice", async (req, res) => {
         {
           name: "Dopes Fitness Subscription",
           description: "Monthly Subscription Plan",
-          amount: amount * 5000, // Convert to paise
+          amount: amount * 100, // Convert to paise
           currency: "INR",
           quantity: 1,
         },
