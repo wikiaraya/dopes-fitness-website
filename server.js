@@ -12,7 +12,7 @@ const razorpay = new Razorpay({
 });
 
 // ✅ One-time subscription amount
-const SUBSCRIPTION_AMOUNT = 50;
+const SUBSCRIPTION_AMOUNT = 1;
 
 // ✅ 1️⃣ Create Order Endpoint
 app.post("/create-order", async (req, res) => {
